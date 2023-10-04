@@ -26,9 +26,9 @@ jobs:
           echo "GitHub API Response:"
           curl -s -H "Authorization: zzz" "$PR_URL/reviews"
 
-          APPROVALS=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" "$PR_URL/reviews" | jq '[.[] | select(.state == "APPROVED") | .user.login] | length')
+          APPROVALS=$(curl -s -H "Authorization: Bearer zzz" "$PR_URL/reviews" | jq '[.[] | select(.state == "APPROVED") | .user.login] | length')
 
 
           if [ "$APPROVALS" -ge 1 ]; then
-            curl -s -X PUT -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -d '{"merge_method": "merge"}' "$PR_URL/merge"
+            curl -s -X PUT -H "Authorization: Bearer zzz" -d '{"merge_method": "merge"}' "$PR_URL/merge"
           fi
