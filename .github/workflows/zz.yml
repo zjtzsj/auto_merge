@@ -19,7 +19,7 @@ jobs:
 
       - name: Auto Merge PR
         env:
-          SECRET: ${{ secrets.AUTO_MERGE }}
+          SECRET: ${{ secrets.MERGE }}
         run: |
           PR_URL=$(jq -r ".pull_request.url" "$GITHUB_EVENT_PATH")
           PR_NUMBER=$(jq -r ".pull_request.number" "$GITHUB_EVENT_PATH")
