@@ -27,7 +27,7 @@ jobs:
           API_RESPONSE=$(curl -s -H "Authorization: ***" "$PR_URL/reviews")
           echo "API Response: $API_RESPONSE"
 
-          APPROVALS=$(echo "$API_Response" | jq '.[] | select(.state == "APPROVED") | .user.login' | wc -l)
+          APPROVALS=$(echo "$API_RESPONSE" | jq '.[] | select(.state == "APPROVED") | .user.login' | wc -l)
 
 
           if [ "$APPROVALS" -ge 1 ]; then
