@@ -23,12 +23,11 @@ jobs:
           PR_NUMBER=$(jq -r ".pull_request.number" "$GITHUB_EVENT_PATH")
           echo "Pull Request URL: $PR_URL"
           echo "Pull Request Number: $PR_NUMBER"  
-          echo "secrect ${{ secrets.AUTO_MERGE }}"
           echo "GitHub API Response:"
 
           curl -s -H "Authorization: zzz" "$PR_URL/reviews"
 
-          APPROVALS=$(curl -s -H "Authorization: Bearer zzz" "$PR_URL/reviews" | jq '[.[] | select(.state == "APPROVED") | .user.login] | length')
+          APPROVALS=$(curl -s -H "Authorization: Bearer zzz" "$PR_URL/reviews" | jq '.[] | select(.state == "APPROVED") | .user.login' | wc -l)
 
 
           if [ "$APPROVALS" -ge 1 ]; then
