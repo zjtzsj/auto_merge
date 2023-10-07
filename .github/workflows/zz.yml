@@ -19,7 +19,7 @@ jobs:
 
       - name: Auto Merge PR
         run: |
-          apt install jq
+          sudo apt-get update && sudo apt-get install -y jq
           PR_URL=$(jq -r ".pull_request.url" "$GITHUB_EVENT_PATH")
           PR_NUMBER=$(jq -r ".pull_request.number" "$GITHUB_EVENT_PATH")
           echo "Pull Request URL: $PR_URL"
