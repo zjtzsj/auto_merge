@@ -5,20 +5,20 @@ on:
     types:
       - submitted
 
+permissions:
+    contents: read
+    pull-requests: write
+    
 jobs:
   auto_merge:
     runs-on: ubuntu-latest
 
-    permissions:
-      contents: read
-      pull-requests: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Auto Merge PR
-        shell: bash
         env:
           SECRET: ${{ secrets.MERGE }}
         run: |
