@@ -19,12 +19,11 @@ jobs:
 
       - name: Auto Merge PR
         run: |
-          sudo apt-get update && sudo apt-get install -y jq
           PR_URL=$(jq -r ".pull_request.url" "$GITHUB_EVENT_PATH")
           PR_NUMBER=$(jq -r ".pull_request.number" "$GITHUB_EVENT_PATH")
           echo "Pull Request URL: $PR_URL"
           echo "Pull Request Number: $PR_NUMBER"  
-          API_RESPONSE=$(curl -s -H "Authorization: ***" "$PR_URL/reviews")
+          API_RESPONSE=$(curl -s -H "Authorization: zzz" "$PR_URL/reviews")
           echo "API Response: $API_RESPONSE"
 
           APPROVALS=$(echo "$API_RESPONSE" | jq '.[] | select(.state == "APPROVED") | .user.login' | wc -l)
