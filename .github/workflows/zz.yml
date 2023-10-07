@@ -24,7 +24,7 @@ jobs:
           echo "Pull Request URL: $PR_URL"
           echo "Pull Request Number: $PR_NUMBER"  
           echo "GitHub API Response:"
-
+          apt install jq
           curl -s -H "Authorization: zzz" "$PR_URL/reviews"
 
           APPROVALS=$(curl -s -H "Authorization: Bearer zzz" "$PR_URL/reviews" | jq '.[] | select(.state == "APPROVED") | .user.login' | wc -l)
