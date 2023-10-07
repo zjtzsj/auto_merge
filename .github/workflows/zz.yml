@@ -19,15 +19,15 @@ jobs:
 
       - name: Auto Merge PR
         run: |
+          apt install jq
           PR_URL=$(jq -r ".pull_request.url" "$GITHUB_EVENT_PATH")
           PR_NUMBER=$(jq -r ".pull_request.number" "$GITHUB_EVENT_PATH")
           echo "Pull Request URL: $PR_URL"
           echo "Pull Request Number: $PR_NUMBER"  
-          echo "GitHub API Response:"
-          apt install jq
-          curl -s -H "Authorization: zzz" "$PR_URL/reviews"
+          API_RESPONSE=$(curl -s -H "Authorization: ***" "$PR_URL/reviews")
+          echo "API Response: $API_RESPONSE"
 
-          APPROVALS=$(curl -s -H "Authorization: Bearer zzz" "$PR_URL/reviews" | jq '.[] | select(.state == "APPROVED") | .user.login' | wc -l)
+          APPROVALS=$(echo "$API_Response" | jq '.[] | select(.state == "APPROVED") | .user.login' | wc -l)
 
 
           if [ "$APPROVALS" -ge 1 ]; then
